@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Event(models.Model):
     CATEGORY_CHOICES = [
@@ -31,7 +34,7 @@ class Event(models.Model):
 
 class RSVP(models.Model):
     STATUS_CHOICES = [
-        ('rsvp', 'RSVP')
+        ('rsvp', 'RSVP'),
         ('going', 'Going'),
         ('cancelled', 'Cancelled'),
         ('waitlist', 'Waitlist'),
