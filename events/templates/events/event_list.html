@@ -9,17 +9,19 @@
     </head>
     <body>
         <h1>Events</h1>
-        <form method="get" class="form-inline mb-3">
-            <input type="text" name="location" placeholder="Location" class="form-control mr-2">
-            <select name="category" class="form-control mr-2">
-                <option value="">All Categories</option>
-                <option value="music">Music</option>
-                <option value="art">Art</option>
-                <option value="tech">Technology</option>
-                <option value="sports">Sports</option>
-                <option value="other">Other</option>
-            </select>
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </form>
+        <table>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">City</th>
+                <th scope="col">Date</th>
+            </tr>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.location_city }}</td>
+                <td>{{ event.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
