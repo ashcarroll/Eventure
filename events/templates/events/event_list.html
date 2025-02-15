@@ -2,20 +2,15 @@
 {% block content %}
 
     {% for event in events %}
-        <a href="{% url 'events:event_detail' event.pk %}">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                 <img class="rounded-circle article-img" src="{{ event.created_by.profile.image.url }}">
                 <h5 class="card-title">{{ event.title }}</h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">{{ event.location_city }}</h6>
                 <p class="card-text">{{ event.description }}.</p>
-                <!-- <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a> -->
                 </div>
             </div>
-        </a>
     {% endfor %}
-
 {% endblock content %}
 
 
