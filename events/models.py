@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+
 
 User = get_user_model()
 
@@ -30,6 +32,8 @@ class Event(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse('events:event_detail', kwargs={'pk': self.pk})
 
 class RSVP(models.Model):
     STATUS_CHOICES = [

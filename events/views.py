@@ -23,7 +23,6 @@ class EventDetailView(DetailView):
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
-    success_url = '/'
     login_url = 'login'
 
     def form_valid(self, form):
