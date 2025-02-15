@@ -3,7 +3,7 @@ from .models import Event
 from.forms import EventForm
 from django.views.generic import ( ListView, DetailView, CreateView, UpdateView )
 from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.utils.datetime_safe import datetime
 
 from django.contrib.auth import get_user_model
@@ -38,7 +38,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-class EventUpdateView(LoginRequiredMixin, UpdateView):
+class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Event
     form_class = EventForm
 
@@ -54,3 +54,7 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.end_time = datetime.combine(end_date, end_time)
 
         return super().form_valid(form)
+    
+    def test_func(self):
+        event = self.get_object()
+        return self.request.user == event.created_by
