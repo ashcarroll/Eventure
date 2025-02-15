@@ -18,7 +18,6 @@ class Event(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField()
-    date = models.DateTimeField()
     location_address = models.CharField(max_length=200)
     location_city = models.CharField(max_length=50)
     start_time = models.DateTimeField()

@@ -54,15 +54,22 @@ class EventForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        # Combine date and time fields
+        
+        # Get the date and time components
         start_date = cleaned_data.get('start_date')
         start_time = cleaned_data.get('start_time_input')
         end_date = cleaned_data.get('end_date')
         end_time = cleaned_data.get('end_time_input')
 
-        if start_date and start_time:
-            cleaned_data['start_time'] = datetime.combine(start_date, start_time)
-        if end_date and end_time:
-            cleaned_data['end_time'] = datetime.combine(end_date, end_time)
+        if not all([start_date, start_time, end_date, end_time]):
+            raise forms.ValidationError("All date and time fields are required.")
+
+        # Create datetime objects for validation
+        start_datetime = datetime.combine(start_date, start_time)
+        end_datetime = datetime.combine(end_date, end_time)
+
+        # Validate that end time is after start time
+        if end_datetime <= start_datetime:
+            raise forms.ValidationError("End time must be after start time")
 
         return cleaned_data
