@@ -13,6 +13,22 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: none;
+}
+
+.card-header {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-outline-primary:hover, 
+.btn-outline-danger:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s;
+}
+
 .btn-custom {
     border-radius: 25px;
     padding: 0.5rem 1.5rem;

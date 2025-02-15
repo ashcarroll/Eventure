@@ -1,20 +1,108 @@
 {% extends "events/base.html" %}
+{% load static %}
+
 {% block content %}
-<article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ event.created_by.profile.image.url }}">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="#">{{ event.created_by }}</a>
-            <small class="text-muted">{{ event.created_at|date:'dS, F, Y'}}</small>
-            {% if object.created_by == user %}
-                <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'events:event_update' object.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'events:event_delete' object.id %}">Delete</a>
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img class="rounded-circle me-3" src="{{ event.created_by.profile.image.url }}" width="60" height="60" alt="{{ event.created_by }}'s profile picture">
+                    <div>
+                        <h5 class="mb-0">{{ event.title }}</h5>
+                        <small class="text-muted">Hosted by {{ event.created_by }}</small>
+                    </div>
                 </div>
+                {% if object.created_by == user %}
+                <div>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'events:event_update' object.id %}">
+                        <i class="fas fa-edit"></i> Edit Event
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'events:event_delete' object.id %}">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Public Information -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h6 class="text-muted mb-3">About this event</h6>
+                    <p>{{ event.description }}</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                                <strong class="ms-2">Location</strong>
+                                <p class="mb-0 ms-4">{{ event.location_city }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <i class="fas fa-calendar text-primary"></i>
+                                <strong class="ms-2">Date</strong>
+                                <p class="mb-0 ms-4">{{ event.start_time|date:'l, F j, Y' }}</p>
+                                <p class="mb-0 ms-4">{{ event.start_time|date:'g:i A' }} - {{ event.end_time|date:'g:i A' }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <i class="fas fa-tag text-primary"></i>
+                                <strong class="ms-2">Category</strong>
+                                <p class="mb-0 ms-4">{{ event.get_category_display }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+            <!-- Additional Details for Logged-in Users -->
+            <div class="mt-4">
+                <h6 class="text-muted mb-3">Additional Information</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="fas fa-map-marked-alt text-primary"></i>
+                                    Full Address
+                                </h6>
+                                <p class="card-text">{{ event.location_address }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="fas fa-users text-primary"></i>
+                                    Capacity Information
+                                </h6>
+                                <p class="card-text">Maximum Capacity: {{ event.max_capacity }} people</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info mt-4" role="alert">
+                <i class="fas fa-info-circle"></i>
+                <span class="ms-2">Please <a href="{% url 'login' %}">log in</a> to see additional event details.</span>
+            </div>
             {% endif %}
-            </div>
-                <h2><a class="article-title" href="#">{{ event.title }}</a></h2>
-                <p class="article-content">{{ event.description }}</p>
-            </div>
-</article>
-{% endblock content %}  
+        </div>
+
+        <div class="card-footer text-muted">
+            <small>Created on {{ event.created_at|date:'F j, Y' }}</small>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
