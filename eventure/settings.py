@@ -131,3 +131,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_FAIL_SILENTLY = not DEBUG
 
 LOGIN_REDIRECT_URL = 'events:event_list'
+LOGIN_URL = 'login'
