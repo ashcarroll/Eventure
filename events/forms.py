@@ -52,6 +52,7 @@ class EventForm(forms.ModelForm):
         self.fields['end_date'].help_text = "Select the event end date"
         self.fields['end_time_input'].help_text = "Select the event end time"
 
+
     def clean(self):
         cleaned_data = super().clean()
         
