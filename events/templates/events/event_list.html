@@ -2,6 +2,7 @@
 {% block content %}
 
     {% for event in events %}
+            <a href="{% url 'events:event_detail' event.pk %}">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                 <img class="rounded-circle article-img" src="{{ event.created_by.profile.image.url }}">
@@ -10,6 +11,7 @@
                 <p class="card-text">{{ event.description }}.</p>
                 </div>
             </div>
+            </a>
     {% endfor %}
 {% endblock content %}
 
