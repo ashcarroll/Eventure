@@ -1,50 +1,100 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f2f5;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navbar Styling */
 .navbar-custom {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 1rem;
+    background-color: #ffffff;
 }
 
-.card-custom {
-    transition: transform 0.2s;
-    margin-bottom: 1.5rem;
+.navbar-brand {
+    color: #0d6efd;
+    font-weight: 600;
 }
 
-.card-custom:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
+/* Card Styling */
 .card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    border: none;
+    background-color: #ffffff;
+    border: 1px solid #e0e4e8;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
 }
 
 .card-header {
-    background-color: rgba(0, 0, 0, 0.02);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.btn-outline-primary:hover, 
-.btn-outline-danger:hover {
-    transform: translateY(-1px);
-    transition: transform 0.2s;
-}
-
-.btn-custom {
-    border-radius: 25px;
-    padding: 0.5rem 1.5rem;
-}
-
-.list-group-custom {
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.list-group-item-custom {
-    padding: 1rem;
-    border-left: 4px solid transparent;
-}
-
-.list-group-item-custom:hover {
-    border-left-color: #0d6efd;
     background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+}
+
+/* Event Details Specific */
+.event-details img.profile-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* Event List Specific */
+.event-list .card {
+    height: 100%;
+}
+
+.event-list img.rounded-circle {
+    object-fit: cover;
+}
+
+/* Profile Images */
+img.rounded-circle {
+    object-fit: cover;
+}
+
+/* Button Styling */
+.btn {
+    font-weight: 500;
+}
+
+.btn-outline-primary,
+.btn-outline-danger {
+    border-width: 2px;
+}
+
+/* Form Styling */
+.content-section {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Alert Messages */
+.alert {
+    margin-bottom: 1rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Badge Styling */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+/* Utility Classes */
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* My Events Page Specific */
+.hosting-events .card,
+.attending-events .card,
+.waitlist-events .card {
+    height: 100%;
 }
