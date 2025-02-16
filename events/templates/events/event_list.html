@@ -46,7 +46,7 @@
                                 {% if event.created_by.profile.image %}
                                     <img src="{{ event.created_by.profile.image.url }}" class="rounded-circle me-2" width="25" height="25" alt="Profile picture">
                                 {% else %}
-                                    <img src="{% static 'default.jpg' %}" class="rounded-circle me-2" width="25" height="25" alt="Default profile picture">
+                                    <img src="{% static 'default.png' %}" class="rounded-circle me-2" width="25" height="25" alt="Default profile picture">
                                 {% endif %}
                                 <span class="small text-muted">Hosted by {{ event.created_by }}</span>
                             </div>
