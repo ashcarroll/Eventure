@@ -3,7 +3,7 @@
 {% block content %}
 <div class="content-section">
     <div class="media mb-4">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="your profile picture">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url|default:'https://res.cloudinary.com/dxswcmu0t/image/upload/default_onbmsq' }}" alt="your profile picture">
         <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
             <p class="text-secondary mb-0">
