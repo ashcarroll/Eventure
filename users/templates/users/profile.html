@@ -2,22 +2,28 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
-    <div class="media">
+    <div class="media mb-4">
         <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="your profile picture">
         <div class="media-body">
             <h2 class="account-heading">{{ user.username }}</h2>
-            <p class="text-secondary">{{ user.email }}</p>
+            <p class="text-secondary mb-0">
+                <i class="fas fa-envelope me-2"></i>{{ user.email }}
+            </p>
         </div>
     </div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
+            <legend class="border-bottom mb-4">
+                <i class="fas fa-user-edit text-primary me-2"></i>Profile Info
+            </legend>
             {{ u_form|crispy }}
             {{ p_form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
+            <button class="btn btn-outline-info" type="submit">
+                <i class="fas fa-save me-2"></i>Update
+            </button>
         </div>
     </form>
 </div>
