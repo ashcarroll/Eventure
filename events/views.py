@@ -136,7 +136,7 @@ def cancel_rsvp(request, pk):
             status='waitlist'
         ).order_by('timestamp').first()
         
-        # If there's someone on waitlist, upgrade their status
+        # If there's someone on waitlist, upgrade their status to 'going'
         if waitlist_rsvp:
             waitlist_rsvp.status = 'going'
             waitlist_rsvp.save()
@@ -146,3 +146,22 @@ def cancel_rsvp(request, pk):
     messages.success(request, 'Your RSVP has been cancelled.')
     
     return redirect('events:event_detail', pk=pk)
+
+
+class MyEventsView(LoginRequiredMixin, ListView):
+    model = Event
+    template_name = 'events/my_events.html'
+    context_object_name = 'events'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['created_events'] = Event.objects.filter(created_by=self.request.user).order_by('-start_time')
+
+        going_rsvps = RSVP.objects.filter(user=self.request.user, status='going')
+        context['attending_events'] = Event.objects.filter(id__in=going_rsvps.values_list('event', flat=True)).order_by('-start_time')
+
+        waitlist_rsvps = RSVP.objects.filter(user=self.request.user, status='waitlist')
+        context['waitlisted_events'] = Event.objects.filter(id__in=waitlist_rsvps.values_list('event', flat=True)).order_by('-start_time')
+        
+        return context
