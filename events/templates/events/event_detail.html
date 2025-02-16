@@ -94,13 +94,85 @@
             {% endif %}
         </div>
 
+        <!-- RSVP Section -->
+        <div class="card-body border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <i class="fas fa-users text-primary"></i>
+                                Event Attendance
+                            </h6>
+                            <p class="mb-1">Confirmed Attendees: {{ going_count }} / {{ event.max_capacity }}</p>
+                            {% if waitlist_count > 0 %}
+                                <p class="mb-0">Waitlist: {{ waitlist_count }} people</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {% if user.is_authenticated %}
+                        <div class="card">
+                            <div class="card-body text-center">
+                                {% if user_rsvp %}
+                                    {% if user_rsvp.status == 'going' %}
+                                        <div class="mb-3">
+                                            <i class="fas fa-check-circle text-success fa-2x"></i>
+                                            <p class="mb-3">You're confirmed for this event!</p>
+                                            <form action="{% url 'events:event_cancel_rsvp' event.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-danger">
+                                                    <i class="fas fa-times"></i> Cancel RSVP
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% elif user_rsvp.status == 'waitlist' %}
+                                        <div class="mb-3">
+                                            <i class="fas fa-clock text-warning fa-2x"></i>
+                                            <p class="mb-3">You're on the waitlist</p>
+                                            <form action="{% url 'events:event_cancel_rsvp' event.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-outline-danger">
+                                                    <i class="fas fa-times"></i> Leave Waitlist
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <form action="{% url 'events:event_rsvp' event.pk %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            {% if is_full %}
+                                                <i class="fas fa-clock"></i> Join Waitlist
+                                            {% else %}
+                                                <i class="fas fa-check"></i> RSVP Now
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="mb-2">Please log in to RSVP for this event</p>
+                                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">
+                                    <i class="fas fa-sign-in-alt"></i> Login to RSVP
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
         <div class="card-footer text-muted">
             <small>Created on {{ event.created_at|date:'F j, Y' }}</small>
         </div>
     </div>
 </div>
 {% endblock content %}
-
 
 
 
