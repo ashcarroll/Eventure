@@ -1,5 +1,5 @@
 from django import forms
-from django.utils.datetime_safe import datetime
+from datetime import datetime
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 from .models import Event
