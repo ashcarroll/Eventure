@@ -2,17 +2,35 @@
 {% load static %}
 {% block content %}
     {% load crispy_forms_tags %}
-        <div class="content-section">
-        <form method="POST" id="event-form">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Event Details</legend>
-
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline" type="submit">Post</button>
+    <div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    {% if form.instance.pk %}
+                        <i class="fas fa-edit text-primary me-2"></i>Edit Event
+                    {% else %}
+                        <i class="fas fa-plus-circle text-primary me-2"></i>Create New Event
+                    {% endif %}
+                </h5>
             </div>
-        </form>
+            <div class="card-body">
+                <form method="POST" id="event-form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="mt-4">
+                        <button class="btn btn-primary" type="submit">
+                            {% if form.instance.pk %}
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            {% else %}
+                                <i class="fas fa-plus me-2"></i>Create Event
+                            {% endif %}
+                        </button>
+                        <a class="btn btn-outline-secondary ms-2" href="{% url 'events:event_list' %}">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock content %}
